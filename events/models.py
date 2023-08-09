@@ -7,6 +7,7 @@ class Person(models.Model):
     fathers_name = models.CharField(max_length=200)
     phone = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
+    where_knew = models.CharField(max_length=200)
 
 
 class PersonNotHSE(models.Model):
@@ -21,7 +22,8 @@ class Team(models.Model):
 
 class Event(models.Model):
     name = models.CharField(max_length=200)
-    description = models.CharField(max_length=2000)
+    short_description = models.CharField(max_length=2000)
+    long_description = models.CharField(max_length=2000)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     poster = models.ImageField()
