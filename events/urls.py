@@ -19,5 +19,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('media/<str:filename>/', return_photo, name='photo_detail'),
+    path('media/<str:filename>/', return_media, name='media_detail'),
 ]

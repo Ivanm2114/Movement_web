@@ -35,16 +35,10 @@ class PhotoViewSet(viewsets.ModelViewSet):
         return HttpResponse(json.dumps({'message': "Uploaded"}), status=200)
 
 
-def return_photo(request, filename):
-    print(filename)
-    print(Photo.objects.get(image=f'{filename}'))
-    return FileResponse(Photo.objects.get(image=f'{filename}').image)
-
-
-class PhotoDetailView(DetailView):
-    model = Photo
-    template_name = 'events/photo.html'
-    context_object_name = 'photo'
+def return_media(request, filename):
+    if Photo.objects.get(image=f'{filename}'):
+        return FileResponse(Photo.objects.get(image=f'{filename}').image)
+    return FileResponse(Video.objects.get(video=f'{filename}').video)
 
 
 class EventViewSet(viewsets.ModelViewSet):
