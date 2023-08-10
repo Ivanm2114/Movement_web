@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 class Photo(models.Model):
     image = models.ImageField()
     title = models.CharField(max_length=200)
@@ -29,6 +28,7 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name + ' ' + str(self.start_date.year)
+
 
 class Person(models.Model):
     name = models.CharField(max_length=200)
@@ -62,8 +62,6 @@ class Team(models.Model):
         return self.name + ' ' + self.event.name
 
 
-
-
 class Sponsor(models.Model):
     name = models.CharField(max_length=200)
     logo = models.ImageField()
@@ -75,3 +73,5 @@ class Sponsor(models.Model):
 
 class Head(Person):
     photo = models.ImageField()
+    position = models.CharField(max_length=200)
+
