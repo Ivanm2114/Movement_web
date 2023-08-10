@@ -9,6 +9,9 @@ router.register(r'personnothse', views.PersonNotHSEViewSet)
 router.register(r'photo', views.PhotoViewSet)
 router.register(r'team', views.TeamViewSet)
 router.register(r'event', views.EventViewSet)
+router.register(r'video', views.VideoViewSet)
+router.register(r'sponsor', views.SponsorViewSet)
+router.register(r'head', views.HeadViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),

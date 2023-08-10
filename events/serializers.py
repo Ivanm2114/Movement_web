@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Event, Person, PersonNotHSE, Photo, Team
+from .models import Event, Person, PersonNotHSE, Photo, Team, Video, Sponsor, Head
 
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
@@ -32,3 +32,20 @@ class PhotoSerializer(serializers.HyperlinkedModelSerializer):
         model = Photo
         fields = '__all__'
 
+
+class SponsorSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Sponsor
+        fields = '__all__'
+
+
+class VideoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Video
+        fields = '__all__'
+
+
+class HeadSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Head
+        fields = '__all__'
