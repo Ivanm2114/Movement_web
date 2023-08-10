@@ -3,7 +3,7 @@ from rest_framework import routers
 from django.http import FileResponse
 
 from . import views
-from .views import return_photo
+from .views import return_media
 
 router = routers.DefaultRouter()
 router.register(r'person', views.PersonViewSet)
