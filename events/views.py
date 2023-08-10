@@ -1,4 +1,7 @@
-from django.http import HttpResponse
+import json
+
+from django.http import HttpResponse, FileResponse
+from django.views.generic import DetailView
 from rest_framework import viewsets
 
 from .serializers import PhotoSerializer, PersonSerializer, \
@@ -25,6 +28,23 @@ class PersonNotHSEViewSet(viewsets.ModelViewSet):
 class PhotoViewSet(viewsets.ModelViewSet):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
+
+    def post(self, request, *args, **kwargs):
+        file = request.data['file']
+        image = Photo.objects.create(image=file)
+        return HttpResponse(json.dumps({'message': "Uploaded"}), status=200)
+
+
+def return_photo(request, filename):
+    print(filename)
+    print(Photo.objects.get(image=f'{filename}'))
+    return FileResponse(Photo.objects.get(image=f'{filename}').image)
+
+
+class PhotoDetailView(DetailView):
+    model = Photo
+    template_name = 'events/photo.html'
+    context_object_name = 'photo'
 
 
 class EventViewSet(viewsets.ModelViewSet):

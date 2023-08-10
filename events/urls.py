@@ -1,7 +1,9 @@
 from django.urls import path, include
 from rest_framework import routers
+from django.http import FileResponse
 
 from . import views
+from .views import return_photo
 
 router = routers.DefaultRouter()
 router.register(r'person', views.PersonViewSet)
@@ -16,5 +18,6 @@ router.register(r'head', views.HeadViewSet)
 urlpatterns = [
     path('', views.index, name='index'),
     path('api/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('media/<str:filename>/', return_photo, name='photo_detail'),
 ]
