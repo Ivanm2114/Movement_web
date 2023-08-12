@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from .views import return_media
 
 urlpatterns = [
     path('events/', include('events.urls')),
     path('admin/', admin.site.urls),
+    path('media/<str:filename>/', return_media, name='media_detail'),
+
 ]
