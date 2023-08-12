@@ -49,8 +49,7 @@ class PhotoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Photo
         fields = ['id', 'image',
-                  'album', 'title',
-                  'email', 'where_knew', 'telegram', 'pass_ready']
+                  'album', 'title']
 
 
 class SponsorSerializer(serializers.HyperlinkedModelSerializer):
