@@ -6,13 +6,18 @@ from rest_framework import viewsets
 
 from .serializers import PhotoSerializer, PersonSerializer, \
     PersonNotHSESerializer, TeamSerializer, EventSerializer, \
-    HeadSerializer, SponsorSerializer, VideoSerializer
+    HeadSerializer, SponsorSerializer, PhotoAlbumSerializer
 from .models import Person, PersonNotHSE, \
-    Photo, Event, Team, Sponsor, Head, Video
+    Photo, Event, Team, Sponsor, Head, PhotoAlbum
 
 
 def index(request):
     return HttpResponse("Hello, world. You're at the events index.")
+
+
+class PhotoAlbumViewSet(viewsets.ModelViewSet):
+    queryset = PhotoAlbum.objects.all()
+    serializer_class = PhotoAlbumSerializer
 
 
 class PersonViewSet(viewsets.ModelViewSet):
@@ -35,12 +40,6 @@ class PhotoViewSet(viewsets.ModelViewSet):
         return HttpResponse(json.dumps({'message': "Uploaded"}), status=200)
 
 
-def return_media(request, filename):
-    if Photo.objects.get(image=f'{filename}'):
-        return FileResponse(Photo.objects.get(image=f'{filename}').image)
-    return FileResponse(Video.objects.get(video=f'{filename}').video)
-
-
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
@@ -59,8 +58,3 @@ class SponsorViewSet(viewsets.ModelViewSet):
 class HeadViewSet(viewsets.ModelViewSet):
     queryset = Head.objects.all()
     serializer_class = HeadSerializer
-
-
-class VideoViewSet(viewsets.ModelViewSet):
-    queryset = Video.objects.all()
-    serializer_class = VideoSerializer

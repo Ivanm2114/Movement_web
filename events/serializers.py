@@ -1,51 +1,69 @@
 from rest_framework import serializers
 
-from .models import Event, Person, PersonNotHSE, Photo, Team, Video, Sponsor, Head
+from .models import Event, Person, PersonNotHSE, Photo, Team, Sponsor, Head, PhotoAlbum
+
+
+class PhotoAlbumSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = PhotoAlbum
+        fields = ['id','name']
 
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = ['id', 'name',
+                  'short_description', 'long_description',
+                  'start_date', 'end_date', 'poster',
+                  'video', 'trailer',
+                  'amount_of_members', 'recent',
+                  'photo_album', 'registration_url',
+                  'status', 'partners_event']
 
 
 class PersonSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Person
-        fields = '__all__'
+        fields = ['id', 'name',
+                  'surname', 'fathers_name',
+                  'email', 'where_knew', 'telegram']
 
 
 class PersonNotHSESerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PersonNotHSE
-        fields = '__all__'
+        fields = ['id', 'name',
+                  'surname', 'fathers_name',
+                  'email', 'where_knew', 'telegram', 'pass_ready']
 
 
 class TeamSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Team
-        fields = '__all__'
+        fields = ['id', 'name',
+                  'captain', 'members',
+                  'event', 'amount_of_members']
 
 
 class PhotoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Photo
-        fields = '__all__'
+        fields = ['id', 'image',
+                  'album', 'title',
+                  'email', 'where_knew', 'telegram', 'pass_ready']
 
 
 class SponsorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Sponsor
-        fields = '__all__'
-
-
-class VideoSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Video
-        fields = '__all__'
+        fields = ['id', 'name',
+                  'logo', 'site_link']
 
 
 class HeadSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Head
-        fields = '__all__'
+        fields = ['id', 'name',
+                  'surname', 'fathers_name',
+                  'email', 'where_knew',
+                  'telegram', 'photo', 'position']

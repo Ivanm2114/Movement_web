@@ -8,7 +8,7 @@ class PhotoAlbum(models.Model):
 class Photo(models.Model):
     image = models.ImageField(blank=True)
     album = models.ForeignKey(PhotoAlbum, null=True, on_delete=models.DO_NOTHING)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         if self.title:
@@ -16,12 +16,6 @@ class Photo(models.Model):
         return self.image.name
 
 
-class Video(models.Model):
-    video = models.FileField(blank=True)
-    title = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.title
 
 
 class Event(models.Model):
@@ -31,11 +25,11 @@ class Event(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     poster = models.ForeignKey(Photo, on_delete=models.DO_NOTHING, blank=True, related_name='poster', null=True)
-    video = models.ForeignKey(Video, on_delete=models.DO_NOTHING, blank=True, related_name='video_report', null=True)
-    trailer = models.ForeignKey(Video, on_delete=models.DO_NOTHING, blank=True, related_name='trailer', null=True)
+    video = models.URLField()
+    trailer = models.URLField()
     amount_of_members = models.IntegerField()
     recent = models.BooleanField()
-    photo_album = models.ForeignKey(PhotoAlbum, null=True, on_delete=models.DO_NOTHING)
+    photo_album = models.ForeignKey(PhotoAlbum, null=True, on_delete=models.DO_NOTHING, blank=True)
     registration_url = models.URLField(blank=True)
     status = models.CharField(max_length=50)
     partners_event = models.BooleanField()
@@ -78,7 +72,7 @@ class Team(models.Model):
 class Sponsor(models.Model):
     name = models.CharField(max_length=200)
     logo = models.ForeignKey(Photo, on_delete=models.DO_NOTHING)
-    url = models.URLField()
+    site_link = models.URLField()
 
     def __str__(self):
         return self.name
