@@ -4,18 +4,19 @@ from django.db import models
 class PhotoAlbum(models.Model):
     name = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.name
+
 
 class Photo(models.Model):
     image = models.ImageField(blank=True)
-    album = models.ForeignKey(PhotoAlbum, null=True, on_delete=models.DO_NOTHING)
+    album = models.ForeignKey(PhotoAlbum, null=True, on_delete=models.DO_NOTHING, blank=True)
     title = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         if self.title:
             return self.title
         return self.image.name
-
-
 
 
 class Event(models.Model):
@@ -25,8 +26,8 @@ class Event(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     poster = models.ForeignKey(Photo, on_delete=models.DO_NOTHING, blank=True, related_name='poster', null=True)
-    video = models.URLField()
-    trailer = models.URLField()
+    video = models.URLField(blank=True)
+    trailer = models.URLField(blank=True)
     amount_of_members = models.IntegerField()
     recent = models.BooleanField()
     photo_album = models.ForeignKey(PhotoAlbum, null=True, on_delete=models.DO_NOTHING, blank=True)
