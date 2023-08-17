@@ -8,6 +8,7 @@ class PhotoAlbumSerializer(serializers.HyperlinkedModelSerializer):
 
     def get_album_photos(self, obj):
         return list(x.image.url for x in Photo.objects.filter(album=obj))
+
     class Meta:
         model = PhotoAlbum
         fields = ['id', 'name', 'photos']
@@ -15,10 +16,17 @@ class PhotoAlbumSerializer(serializers.HyperlinkedModelSerializer):
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     poster_url = serializers.SerializerMethodField('get_poster_url')
+    logo_url = serializers.SerializerMethodField('get_logo_url')
 
     def get_poster_url(self, obj):
         if obj.poster:
             return obj.poster.image.url
+        else:
+            return None
+
+    def get_logo_url(self, obj):
+        if obj.logo:
+            return obj.logo.image.url
         else:
             return None
 
@@ -27,6 +35,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'name',
                   'short_description', 'long_description',
                   'start_date', 'end_date', 'poster', 'poster_url',
+                  'logo', 'logo_url',
                   'video', 'trailer',
                   'amount_of_members', 'recent',
                   'photo_album', 'registration_url',

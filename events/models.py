@@ -34,6 +34,7 @@ class Event(models.Model):
     registration_url = models.URLField(blank=True)
     status = models.CharField(max_length=50)
     partners_event = models.BooleanField()
+    logo = models.ForeignKey(Photo, on_delete=models.DO_NOTHING, blank=True, related_name='logo', null=True)
 
     def __str__(self):
         return self.name + ' ' + str(self.start_date.year)
