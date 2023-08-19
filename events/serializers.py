@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Event, Person, PersonNotHSE, Photo, Team, Sponsor, Head, PhotoAlbum
+from .models import Event, Person, EventCategory, Photo, Team, Sponsor, Head, PhotoAlbum
 
 
 class PhotoAlbumSerializer(serializers.HyperlinkedModelSerializer):
@@ -17,6 +17,7 @@ class PhotoAlbumSerializer(serializers.HyperlinkedModelSerializer):
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     poster_url = serializers.SerializerMethodField('get_poster_url')
     logo_url = serializers.SerializerMethodField('get_logo_url')
+    category_name = serializers.SerializerMethodField('get_category_name')
 
     def get_poster_url(self, obj):
         if obj.poster:
@@ -30,6 +31,9 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
         else:
             return None
 
+    def get_category_name(self, obj):
+        return obj.category.name
+
     class Meta:
         model = Event
         fields = ['id', 'name',
@@ -39,23 +43,30 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
                   'video', 'trailer',
                   'amount_of_members', 'recent',
                   'photo_album', 'registration_url',
-                  'status', 'partners_event']
+                  'status', 'partners_event',
+                  'category', 'category_name']
 
 
 class PersonSerializer(serializers.HyperlinkedModelSerializer):
+    event_id = serializers.SerializerMethodField('get_event_id')
+
+    def get_event_id(self, obj):
+        return obj.event.id
+
     class Meta:
         model = Person
         fields = ['id', 'name',
                   'surname', 'fathers_name',
-                  'email', 'where_knew', 'telegram']
+                  'email', 'where_knew', 'telegram',
+                  'from_hse',
+                  'university', 'faculty',
+                  'event']
 
 
-class PersonNotHSESerializer(serializers.HyperlinkedModelSerializer):
+class EventCategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = PersonNotHSE
-        fields = ['id', 'name',
-                  'surname', 'fathers_name',
-                  'email', 'where_knew', 'telegram', 'pass_ready']
+        model = EventCategory
+        fields = ['id', 'name']
 
 
 class TeamSerializer(serializers.HyperlinkedModelSerializer):

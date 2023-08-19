@@ -19,6 +19,13 @@ class Photo(models.Model):
         return self.image.name
 
 
+class EventCategory(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
 class Event(models.Model):
     name = models.CharField(max_length=200)
     short_description = models.CharField(max_length=2000)
@@ -35,6 +42,7 @@ class Event(models.Model):
     status = models.CharField(max_length=50)
     partners_event = models.BooleanField()
     logo = models.ForeignKey(Photo, on_delete=models.DO_NOTHING, blank=True, related_name='logo', null=True)
+    category = models.ForeignKey(EventCategory, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.name + ' ' + str(self.start_date.year)
@@ -47,17 +55,13 @@ class Person(models.Model):
     email = models.CharField(max_length=200)
     where_knew = models.CharField(max_length=200, blank=True)
     telegram = models.CharField(max_length=200)
+    from_hse = models.BooleanField()
+    event = models.ForeignKey(Event, on_delete=models.DO_NOTHING)
+    university = models.CharField(max_length=200)
+    faculty = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.surname + ' ' + self.name + ' ' + self.fathers_name
-
-
-class PersonNotHSE(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    pass_ready = models.BooleanField()
-
-    def __str__(self):
-        return self.person.surname + ' ' + self.person.name + ' ' + self.person.fathers_name
 
 
 class Team(models.Model):
