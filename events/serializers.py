@@ -60,7 +60,7 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
                   'email', 'where_knew', 'telegram',
                   'from_hse',
                   'university', 'faculty',
-                  'event']
+                  'event', 'event_id']
 
 
 class EventCategorySerializer(serializers.HyperlinkedModelSerializer):
