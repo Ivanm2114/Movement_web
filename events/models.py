@@ -19,11 +19,6 @@ class Photo(models.Model):
         return self.image.name
 
 
-class EventCategory(models.Model):
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
 
 
 class Event(models.Model):
@@ -42,7 +37,7 @@ class Event(models.Model):
     status = models.CharField(max_length=50)
     partners_event = models.BooleanField()
     logo = models.ForeignKey(Photo, on_delete=models.DO_NOTHING, blank=True, related_name='logo', null=True)
-    category = models.ForeignKey(EventCategory, on_delete=models.DO_NOTHING)
+    category = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.name + ' ' + str(self.start_date.year)
@@ -70,6 +65,7 @@ class Team(models.Model):
     members = models.CharField(max_length=500)
     event = models.ForeignKey(Event, on_delete=models.DO_NOTHING)
     amount_of_members = models.IntegerField()
+    where_knew = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return self.name + ' ' + self.event.name

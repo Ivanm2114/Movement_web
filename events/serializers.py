@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Event, Person, EventCategory, Photo, Team, Sponsor, Head, PhotoAlbum
+from .models import Event, Person, Photo, Team, Sponsor, Head, PhotoAlbum
 
 
 class PhotoAlbumSerializer(serializers.HyperlinkedModelSerializer):
@@ -63,18 +63,17 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
                   'event', 'event_id']
 
 
-class EventCategorySerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = EventCategory
-        fields = ['id', 'name']
-
-
 class TeamSerializer(serializers.HyperlinkedModelSerializer):
+    event_id = serializers.SerializerMethodField('get_event_id')
+
+    def get_event_id(self, obj):
+        return obj.event.id
     class Meta:
         model = Team
         fields = ['id', 'name',
                   'captain', 'members',
-                  'event', 'amount_of_members']
+                  'event', 'amount_of_members', 'event_id',
+                  'where_knew']
 
 
 class PhotoSerializer(serializers.HyperlinkedModelSerializer):

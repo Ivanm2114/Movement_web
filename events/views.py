@@ -5,9 +5,9 @@ from django.views.generic import DetailView
 from rest_framework import viewsets
 
 from .serializers import PhotoSerializer, PersonSerializer, \
-    EventCategorySerializer, TeamSerializer, EventSerializer, \
+    TeamSerializer, EventSerializer, \
     HeadSerializer, SponsorSerializer, PhotoAlbumSerializer
-from .models import Person, EventCategory, \
+from .models import Person, \
     Photo, Event, Team, Sponsor, Head, PhotoAlbum
 
 
@@ -25,9 +25,6 @@ class PersonViewSet(viewsets.ModelViewSet):
     serializer_class = PersonSerializer
 
 
-class EventCategoryViewSet(viewsets.ModelViewSet):
-    queryset = EventCategory.objects.all()
-    serializer_class = EventCategorySerializer
 
 
 class PhotoViewSet(viewsets.ModelViewSet):
