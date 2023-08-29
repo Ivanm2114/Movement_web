@@ -17,7 +17,6 @@ class PhotoAlbumSerializer(serializers.HyperlinkedModelSerializer):
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     poster_url = serializers.SerializerMethodField('get_poster_url')
     logo_url = serializers.SerializerMethodField('get_logo_url')
-    category_name = serializers.SerializerMethodField('get_category_name')
 
     def get_poster_url(self, obj):
         if obj.poster:
@@ -31,8 +30,6 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
         else:
             return None
 
-    def get_category_name(self, obj):
-        return obj.category.name
 
     class Meta:
         model = Event
@@ -44,7 +41,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
                   'amount_of_members', 'recent',
                   'photo_album', 'registration_url',
                   'status', 'partners_event',
-                  'category', 'category_name']
+                  'category', 'category']
 
 
 class PersonSerializer(serializers.HyperlinkedModelSerializer):
