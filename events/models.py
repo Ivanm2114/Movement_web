@@ -38,6 +38,7 @@ class Event(models.Model):
     partners_event = models.BooleanField()
     logo = models.ForeignKey(Photo, on_delete=models.DO_NOTHING, blank=True, related_name='logo', null=True)
     category = models.CharField(max_length=200, blank=True, null=True)
+    vk_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.name + ' ' + str(self.start_date.year)

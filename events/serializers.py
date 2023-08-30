@@ -41,7 +41,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
                   'amount_of_members', 'recent',
                   'photo_album', 'registration_url',
                   'status', 'partners_event',
-                  'category', 'category']
+                  'category', 'category', 'vk_url']
 
 
 class PersonSerializer(serializers.HyperlinkedModelSerializer):
