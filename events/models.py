@@ -53,7 +53,7 @@ class Person(models.Model):
     telegram = models.CharField(max_length=200)
     from_hse = models.BooleanField()
     event = models.ForeignKey(Event, on_delete=models.DO_NOTHING)
-    university = models.CharField(max_length=200)
+    university = models.CharField(max_length=200, blank=True, null=True)
     faculty = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
@@ -62,7 +62,9 @@ class Person(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=200)
-    captain = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
+    captain = models.CharField(max_length=200)
+    captain_tg = models.CharField(max_length=200)
+    captain_email = models.CharField(max_length=200)
     members = models.CharField(max_length=500)
     event = models.ForeignKey(Event, on_delete=models.DO_NOTHING)
     amount_of_members = models.IntegerField()
